@@ -1,0 +1,16 @@
+.profile {
+    display: grid;
+    gap: 10px;
+    grid-auto-flow: column;
+    justify-content: start;
+}
+
+.profile__name {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.profile__img {
+    height: 135px;
+}

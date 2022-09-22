@@ -1,0 +1,50 @@
+.main__dialogs {
+    display: grid;
+    gap: 15px;
+    align-content: start;
+    background-color: antiquewhite;
+    padding: 20px;
+    width: 240px;
+    height: 100%;
+}
+
+.dialog-item-wrappr {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.dialog-item-wrappr::before {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  width: 222px;
+  height: 1px;
+  font-size: 20px;
+  right: -10px;
+  display: block;
+  background: #000;
+}
+
+.dialogs__item {
+  position: relative;
+  left: 15px;
+}
+
+.dialogs__item-avatar {
+  height: 35px;
+}
+
+.main__dialogs .linkBtn {
+  color: #000;
+}
+.main__dialogs .linkBtn:hover {
+  color: rgba(0,0,0, .5)
+}
+
+.dialogs__item--active {
+  font-size: 21px;
+  font-weight: 500;
+}

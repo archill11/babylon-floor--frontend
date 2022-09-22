@@ -1,0 +1,45 @@
+.nav {
+    position: relative;
+    background-color: blueviolet;
+    grid-area: N;
+    display: grid;
+    padding: 10px;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    gap: 5px;
+    align-content: start;
+}
+
+.nav__el__settings {
+    margin-top: 20px;
+}
+
+.linkBtn {
+    color: #fff;
+    text-decoration: none;
+    background-color: rgba(0,0,0,0.0);
+    border: none;
+    display: inline-block;
+    text-align: start;
+    cursor: pointer;
+}
+.linkBtn:hover {
+    color: rgba(255, 255, 255, .5);
+}
+
+.active {
+    font-size: 20px;
+}
+
+.sideBar {
+    position: relative;
+    top: 80px;
+    display: grid;
+    gap: 8px;
+}
+.sideBar__bestFriends {
+    display: grid;
+    align-items: center;
+    gap: 8px;
+}
+

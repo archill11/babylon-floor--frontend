@@ -1,0 +1,26 @@
+.Dialog__message {
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: start;
+    justify-content: start;
+    gap: 15px;
+}
+
+.Dialog__message__avatar {
+    display: grid;
+    justify-items: center;
+    align-items: start;
+    align-content: center;
+
+}
+
+.Dialog__message__avatar__img {
+    height: 50px;
+    border: 1px solid #000
+}
+
+.Dialog__message__text {
+    width: 310px;
+    border: 1px solid #000;
+    padding: 10px;
+}

@@ -1,0 +1,11 @@
+.BestFriends-avatar {
+    height: 25px;
+}
+
+.bestFriends-item-wrappr {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    align-content: center;
+    justify-content: start;
+}

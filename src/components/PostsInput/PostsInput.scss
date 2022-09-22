@@ -1,0 +1,27 @@
+.posts__input {
+    display: grid;
+    gap: 10px;
+}
+
+.posts__input__text-area {
+    height: 40px;
+    resize: none;
+    background-color: rgba(207, 197, 197, .4);
+    padding: 10px
+}
+
+.posts__input__button {
+    justify-self: end;
+    width: 80px;
+    height: 30px;
+    padding: 6px;
+}
+
+.posts__input--sticky {
+    position: sticky;
+    bottom: -1px;
+    border-radius: 0;
+    padding-bottom: 10px;
+    background-color: blanchedalmond;
+
+}

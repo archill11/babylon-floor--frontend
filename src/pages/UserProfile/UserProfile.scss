@@ -1,0 +1,20 @@
+.main {
+    border: 1px solid rgba(0, 0, 0, .1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    grid-area: M;
+    padding: 10px;
+    display: grid;
+    align-content: start;
+    max-height: 1200px;
+    overflow: auto;
+}
+
+.UserProfile {
+    gap: 10px;
+
+}
+
+.posts__last-posts {
+    display: grid;
+    gap: 40px;
+}

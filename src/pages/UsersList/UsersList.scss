@@ -1,0 +1,12 @@
+.UsersList-wrapper {
+  display: grid;
+  align-items: center;
+  align-content: flex-start;
+  gap: 20px;
+}
+
+.userList__item {
+  height: 170px;
+  border: 1px solid #000;
+  padding: 10px;
+}
