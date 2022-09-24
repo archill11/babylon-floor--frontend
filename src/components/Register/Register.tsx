@@ -19,8 +19,8 @@ const Register: React.FC<RegisterProps> = (props) => {
   const isAuth = useSelector( selectIsAuth )
   const { register, handleSubmit, setError, formState: { errors, isValid, isSubmitting} } = useForm({
     defaultValues: {
-      fullName: 'Вася Пупкин',
-      email: 'test@mail.ru',
+      fullName: '',
+      email: '',
       password: '',
     },
     mode: "onBlur"
