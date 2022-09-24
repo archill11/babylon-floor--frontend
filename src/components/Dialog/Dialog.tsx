@@ -11,7 +11,6 @@ import { useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from '../../redux/store'
 
 
-
 const Dialog: React.FC = () => {
 
   const dispatch = useDispatch()
@@ -21,8 +20,7 @@ const Dialog: React.FC = () => {
   const [inputVal, setInputVal] = React.useState('')
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)
   const [messagesL, setMessagesL] = React.useState([])
-  
-  // console.log(messages);
+
 
   React.useEffect(() => {
     dispatch(fethMessages(id))
@@ -33,22 +31,28 @@ const Dialog: React.FC = () => {
   }, [messages])
 
   const sendMessageL = () => {
+    if ( !inputVal.trim() ) return
     const userId = data.id
     const chatId = id
     const name = data.fullName
     const avatarUrl = data.avatarUrl
     const text = inputVal
-    console.log(id);
     socket?.emit('message', {userId, chatId, name, avatarUrl, text})
+    setInputVal('')
     // dispatch(sendMessage([chatId, name, avatarUrl, text]))
   }
 
   React.useEffect(() => {
-    const newSocket = io('http://localhost:8001')
+    console.log('7777',process.env.PORT);
+    
+    
+    const newSocket = io(`${process.env.REACT_APP_API_URL}`)
     setSocket(newSocket)
   }, [setSocket])
 
   const messageListener = (mess) => {
+    if ( Number(mess.chat.id) !== Number(id) ) return
+
     setMessagesL([...messagesL, mess])
   }
 
@@ -60,9 +64,9 @@ const Dialog: React.FC = () => {
   }, [messageListener])
 
   
+
   const mapedData = messagesL.map((item) => {
-    console.log(item.id);
-    return <DialogMessage name={item.name} message={item.text} src={item.avatarUrl} id={item.id} key={item.id}/>
+    return <DialogMessage name={item.name} message={item.text} src={`${process.env.REACT_APP_API_URL}/${item.avatarUrl}`} id={item.id} key={item.id}/>
   })
   
   return(

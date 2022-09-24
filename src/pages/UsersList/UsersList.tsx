@@ -2,11 +2,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { createDialog, fethMyDialogs } from '../../redux/dialogs/asyncActions'
+import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
 import { AppDispatch } from '../../redux/store'
 import { fethUsers } from '../../redux/users/asyncActions'
 import { folow } from '../../redux/users/slice'
 import { io, Socket } from 'socket.io-client'
+import spiner from './../../assets/img/spiner.svg'
 
 import './UsersList.scss';
 
@@ -17,10 +18,11 @@ import './UsersList.scss';
 const UsersList: React.FC = () => {        
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { items, status, folows } = useSelector((state) => state.users)
+  const { items, status, folows } = useSelector((state) => state.users)   
   const  { data }  = useSelector((state) => state.auth)
   const dialogs = useSelector((state) => state.dialogs.items)
   const { createdDialogId } = useSelector((state) => state.dialogs)
+  const [addMessLoading, setAddMessLoading]  = React.useState(false)
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)
   const [chatId, setChatId] = React.useState(null)
 
@@ -39,12 +41,11 @@ const UsersList: React.FC = () => {
   }
 
   React.useEffect(() => {
-    const newSocket = io('http://localhost:8002')
+    const newSocket = io(`${process.env.REACT_APP_API_URL}`)
     setSocket(newSocket)
   }, [setSocket])
 
   const chatListener = (chat) => {
-    console.log('chat chat chat =',chat);
     navigate(`/message/${chat.id}`)
     setChatId(chat)
   }
@@ -57,26 +58,21 @@ const UsersList: React.FC = () => {
   }, [chatListener])
 
   const openDialogl = async (id) => {
+    setAddMessLoading(true)
     try {
       let thisDialog
       if (dialogs.length) {
-        console.log(id);
         thisDialog = dialogs.find((item) => Number(item.users[0].id) === Number(id))
-        console.log(thisDialog);
       }else {
         const { payload } = await dispatch(fethMyDialogs())
-        console.log(id);
         thisDialog = payload.length && payload.find((item) => item.users[0].id === id)
-        console.log(thisDialog);
       }
       if (thisDialog) {
         navigate(`/message/${thisDialog.id}`); 
       }else{
         (async() => {
           try {
-
-          openDialoglSocket(id)
-
+            openDialoglSocket(id)
           } catch (err) {
             alert('ошибка при создании диалога')
             console.log(err);
@@ -95,11 +91,11 @@ const UsersList: React.FC = () => {
     return data && items && item.id !== data.id && (
       <div className="userList__item" key={item.id}>
         <Link to={`/profile/${item.id}`} key={item.id} >
-          <img src={item.avatarUrl} height={100} alt="ava" />
+          <img src={`${process.env.REACT_APP_API_URL}/${data.avatarUrl}`} height={100} alt="ava" />
           <div className="userName">{item.fullName}</div>
         </Link>
           <button onClick={() => follow(item.id)}>{folows.includes(item.id, 0) ? 'unfollow' : 'follow'}</button>
-          <button onClick={() => openDialogl(item.id)}>{ 'send message'}</button>
+          <button disabled={addMessLoading} onClick={() => openDialogl(item.id)}>{addMessLoading ? <img src={spiner} height={18} alt="ava" /> : 'send message'}</button>
       </div>
     ) 
      
@@ -107,7 +103,7 @@ const UsersList: React.FC = () => {
   
   return(
     <div className="UsersList-wrapper ">
-      {status === 'loading' ? <h2>loding...</h2> : usersList}
+      {status === 'loading' ? <img src={spiner} height={150} alt="search"></img> : usersList}
     </div>
   )
   }

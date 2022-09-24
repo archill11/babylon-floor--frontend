@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fethUsers } from "./asyncActions";
+import { fethUpdateUser, fethUsers } from "./asyncActions";
 import { fethOneUser } from "./asyncActions"; 
 import { usersSliceState, status, } from "./types";
 
 
 
-const initialState: usersSliceState = { items: [], user: {}, folows: [], status: status.LOADING, }
+const initialState: usersSliceState = { items: [], user: {}, folows: [], status: status.SUCCESS, }
 
 const usersSlice = createSlice({
     name: "users",
@@ -50,6 +50,17 @@ const usersSlice = createSlice({
         state.status = status.ERROR
         state.user = {}
         alert('Ошибка при запросе данных')
+      })
+
+      builder.addCase(fethUpdateUser.pending, (state) => {
+        state.status = status.LOADING
+      })
+      builder.addCase(fethUpdateUser.fulfilled, (state, action) => {
+        state.status = status.SUCCESS
+      })
+      builder.addCase(fethUpdateUser.rejected, (state) => {
+        state.status = status.ERROR
+        alert('Ошибка при отправке изменения')
       })
     }
 })

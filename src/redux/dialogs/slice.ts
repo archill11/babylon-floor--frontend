@@ -42,20 +42,6 @@ const dialogsSlice = createSlice({
         alert('Ошибка при запросе данных')
       })
 
-      builder.addCase(createDialog.pending, (state) => {
-        state.status = status.LOADING
-        state.createdDialogId = null
-      })
-      builder.addCase(createDialog.fulfilled, (state, action) => {
-        state.status = status.SUCCESS
-        state.createdDialogId = action.payload.id
-      })
-      builder.addCase(createDialog.rejected, (state) => {
-        state.status = status.ERROR
-        state.createdDialogId = null
-        alert('Ошибка при запросе данных')
-      })
-
      
     }
 })

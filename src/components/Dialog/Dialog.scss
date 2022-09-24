@@ -1,7 +1,7 @@
 .main__Dialog {
     display: grid;
     align-content: space-evenly;
-    /* align-content: end; */
+    align-content: flex-end;
     gap: 30px;
     padding: 30px;
     width: 539px;

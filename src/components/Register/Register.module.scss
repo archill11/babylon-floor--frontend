@@ -70,4 +70,7 @@
   &:hover {
     background: rgba(18, 94, 129, 0.2);
   }
+  &:disabled {
+    opacity: 0.3;
+  }
 }

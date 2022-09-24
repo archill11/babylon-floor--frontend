@@ -1,6 +1,5 @@
 //@ts-nocheck
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "../../utils/axios";
 import axios from "../../utils/axios";
 
 
@@ -21,10 +20,14 @@ export const fethMessages = createAsyncThunk<Item[], string[]>('dialogs/fethMess
   return data;
 })
 
-export const createDialog = createAsyncThunk<Item[], string[]>('dialogs/createDialog', async (data1) => {
-  const { data } = await axios.post<Item[]>(`/chat`, data1 )
-  return data;
-})
+
+
+//уже не нужны тк есть сокеты
+
+// export const createDialog = createAsyncThunk<Item[], string[]>('dialogs/createDialog', async (data1) => {
+//   const { data } = await axios.post<Item[]>(`/chat`, data1 )
+//   return data;
+// })
 
 // export const sendMessage = createAsyncThunk<Item[], string[]>('dialogs/sendMessage', async ([chatId, name, avatarUrl, text]) => {
 //   const body = {

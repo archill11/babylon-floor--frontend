@@ -19,7 +19,7 @@ const Profile = () => {
 
   return(
       <div className="profile">
-          <img className="profile__img" src={data.avatarUrl} alt="ava" />
+          <img className="profile__img" src={`${process.env.REACT_APP_API_URL}/${data.avatarUrl}`} alt="ava" />
           <div className="profile__Info">
               <div className="profile__name">{data.fullName}</div>
               <div className="profile__birthday">Date of Birth: 2 januar</div>

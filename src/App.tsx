@@ -11,23 +11,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthMe, selectIsAuth } from "./redux/auth/slice";
 import { Dialog } from './components/Dialog/Dialog';
 import { useLocalStorage } from 'hooks'
+import { MessageNotify } from './components/MessageNotify/MessageNotify';
+import { Settings } from './pages/Settings/Settings.tsx';
 
 
 import './App.scss';
 
 
 
+
 const App: React.FC = () => {
  
-  const isAuth = useSelector( selectIsAuth )
-  const { logined } = useSelector( (state) => state.auth )
-  
-  
   const dispatch = useDispatch()
+  const isAuth = useSelector( selectIsAuth )
+  const { logined, data } = useSelector( (state) => state.auth )
+
   React.useEffect(() => {
     dispatch(fetchAuthMe())
-    
   }, [logined])
+
 
  
   return (
@@ -43,8 +45,11 @@ const App: React.FC = () => {
                 <Route path=":id"  element={ <Dialog/> }/>
               </Route>
 
-              <Route path="/user/" element={ <UsersList />} />
+              <Route path="/user" element={ <UsersList />} />
+              <Route path="/settings" element={ <Settings />} />
           </Routes>
+          
+          <MessageNotify/>
         </div>
       }
       </>

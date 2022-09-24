@@ -8,8 +8,7 @@ import './UserProfile.scss'
 const UserProfile: React.FC = () => {
 
   const postsData = [
-    { id: 1, value: 'because...', likes:15, src: "https://static.gazetametro.ru/media/20220227140236/3650fee74eafe0eecdeb4f5b464be2271574230abcabb467377bd0f9c728c43e.png"},
-    { id: 2, value: 'Hey, why nobody love.me?', likes:3, src: "https://static.gazetametro.ru/media/20220227140236/3650fee74eafe0eecdeb4f5b464be2271574230abcabb467377bd0f9c728c43e.png" },
+    { id: 1, value: 'эта часть сайта в разработке ❗️', likes:15, src: "https://static.gazetametro.ru/media/20220227140236/3650fee74eafe0eecdeb4f5b464be2271574230abcabb467377bd0f9c728c43e.png"},
   ]
 
   const mappedData = postsData.reduce((acc, item) => {

@@ -3,7 +3,7 @@ import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLogin, selectIsAuth } from '../../redux/auth/slice';
+import { fetchAuthMe, fetchLogin, selectIsAuth } from '../../redux/auth/slice';
 
 import styles from './Login.module.scss'
 
@@ -18,7 +18,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const isAuth = useSelector( selectIsAuth )
   const navigate = useNavigate();
   const location = useLocation()
-  const { register, handleSubmit, formState: { errors, isValid} } = useForm({
+  const { register, handleSubmit, formState: { errors, isValid, isSubmitting} } = useForm({
     defaultValues: {
       email: 'test@mail.ru',
       password: '123456',
@@ -32,10 +32,12 @@ const Login: React.FC<LoginProps> = (props) => {
       const token = data.payload.token
       if ( token ) {
         window.localStorage.setItem('token', `Bearer ${token}`)
+        dispatch(fetchAuthMe())
       }
     } catch (err) {
       alert( 'не удалось авторизоваться')
-      console.log(err);
+      console.log( err)
+      // console.log(err);
     }
   }
 
@@ -67,7 +69,7 @@ const Login: React.FC<LoginProps> = (props) => {
             />
             {errors?.password && <span>❗️укажите пароль минимум 4 символа</span>}
 
-            <button className={styles.submit} type='submit'>войти</button>
+            <button className={styles.submit} disabled={!isValid || isSubmitting} type='submit'>войти</button>
           </form>
         </div>
       </div>

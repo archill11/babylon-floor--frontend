@@ -16,6 +16,7 @@ const DialogsList: React.FC = () => {
   const dispatch = useDispatch()
   const {id} = useParams()
   const { items } = useSelector((state: RootState) => state.dialogs)
+  const { data } = useSelector((state: RootState) => state.auth)
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)
   const [chatsList, setChatsList] = React.useState([])
 
@@ -30,11 +31,13 @@ const DialogsList: React.FC = () => {
 
 
   React.useEffect(() => {
-    const newSocket = io('http://localhost:8002')
+    const newSocket = io(`${process.env.REACT_APP_API_URL}`)
     setSocket(newSocket)
   }, [setSocket])
 
   const chatListener = (chat) => {
+    if ( !chat.users.find(item => item.id === data.id) ) return
+    
     // setChatsList([...chatsList, chat])
     dispatch(fethMyDialogs())
   }
@@ -48,12 +51,11 @@ const DialogsList: React.FC = () => {
 
   
   const mapedData = items.map((item) => {
-    console.log(chatsList);
     
     const active = ( id && id === String(item.id)) ? 'dialogs__item--active' : ''
     return (
       <div className="dialog-item-wrappr" key={item.id}>
-        <img className="dialogs__item-avatar" src={item.users[0].avatarUrl} alt="ava" />
+        <img className="dialogs__item-avatar" src={`${process.env.REACT_APP_API_URL}/${item.users[0].avatarUrl}`} alt="ava" />
         <Link to={`/message/${item.id}`} className={'linkBtn dialogs__item ' + active} >{item.users[0].fullName}</Link>
       </div>
     )

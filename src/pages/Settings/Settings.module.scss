@@ -1,0 +1,30 @@
+.profileSettings {
+  display: grid;
+  gap: 50px;
+}
+
+.DND {
+  width: 200px;
+  height: 200px;
+  display: grid;
+  gap: 5px;
+  padding: 5px;
+}
+
+.dropAreaT{
+  border: 2px solid #000;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+}
+
+.dropAreaF {
+  border: 2px dashed #000;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+}

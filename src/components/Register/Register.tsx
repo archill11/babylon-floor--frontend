@@ -17,7 +17,7 @@ const Register: React.FC<RegisterProps> = (props) => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const isAuth = useSelector( selectIsAuth )
-  const { register, handleSubmit, setError, formState: { errors, isValid} } = useForm({
+  const { register, handleSubmit, setError, formState: { errors, isValid, isSubmitting} } = useForm({
     defaultValues: {
       fullName: 'Вася Пупкин',
       email: 'test@mail.ru',
@@ -77,7 +77,7 @@ const Register: React.FC<RegisterProps> = (props) => {
           />
           {errors?.password && <span>❗️укажите пароль минимум 4 символа</span>}
 
-          <button className={styles.submit} type='submit'>зарегистрироватья</button>
+          <button className={styles.submit} disabled={!isValid || isSubmitting} type='submit'>зарегистрироватья</button>
         </form>
       </div>
     </div>
