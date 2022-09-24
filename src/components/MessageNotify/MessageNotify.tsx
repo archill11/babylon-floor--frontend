@@ -34,7 +34,7 @@ const MessageNotify: React.FC = () => {
     if ( !items.find(item => item.id === mess.chat.id) ) return
 
     setMessage(mess)
-    if ((mess.user.id !== data.id) && (!pathname.includes(`message/${mess.chat.id}`))) {
+    if ((mess.user.id === data.id) && (!pathname.includes(`message/${mess.chat.id}`))) {
       setState(`${styles.notification}`)
     }
   }

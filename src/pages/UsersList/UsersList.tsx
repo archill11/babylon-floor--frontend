@@ -91,7 +91,7 @@ const UsersList: React.FC = () => {
     return data && items && item.id !== data.id && (
       <div className="userList__item" key={item.id}>
         <Link to={`/profile/${item.id}`} key={item.id} >
-          <img src={`${process.env.REACT_APP_API_URL}/${data.avatarUrl}`} height={100} alt="ava" />
+          <img src={`${process.env.REACT_APP_API_URL}/${item.avatarUrl}`} height={100} alt="ava" />
           <div className="userName">{item.fullName}</div>
         </Link>
           <button onClick={() => follow(item.id)}>{folows.includes(item.id, 0) ? 'unfollow' : 'follow'}</button>
