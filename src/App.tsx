@@ -7,6 +7,7 @@ import { UserProfile } from './pages/UserProfile/UserProfile';
 import { Nav } from './components/Nav/Nav';
 import { UsersList } from "./pages/UsersList/UsersList";
 import { Auth } from "./pages/Auth/Auth";
+import { NotFound } from "./pages/NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthMe, selectIsAuth } from "./redux/auth/slice";
 import { Dialog } from './components/Dialog/Dialog';
@@ -46,7 +47,10 @@ const App: React.FC = () => {
               </Route>
 
               <Route path="/user" element={ <UsersList />} />
+
               <Route path="/settings" element={ <Settings />} />
+
+              <Route path="*" element={ <NotFound/> }/>
           </Routes>
           
           <MessageNotify/>
