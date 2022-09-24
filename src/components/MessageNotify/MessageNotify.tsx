@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import { io, Socket } from 'socket.io-client'
+import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
 
 import styles from  './MessageNotify.module.scss'
 
@@ -14,6 +15,8 @@ import styles from  './MessageNotify.module.scss'
 // }
 
 const MessageNotify: React.FC = () => {
+
+  const dispatch = useDispatch()
   const { data } = useSelector( (state) => state.auth )
   const { items } = useSelector( (state) => state.dialogs )
   const [state, setState] = React.useState(styles.hideNotify)
@@ -30,16 +33,21 @@ const MessageNotify: React.FC = () => {
     setSocket(newSocket)
   }, [setSocket])
 
-  const messageListener = (mess) => {
-    console.log('mess',mess);
-    console.log('items',items);
+  const messageListener = async(mess) => {
+    
+    const data2 = await dispatch(fethMyDialogs())
 
     
-    if ( !items.find(item => item.id === mess.chat.id) ) return
+    if ( !data2.payload.find(item => item.id === mess.chat.id) ) {
+      return
+    }
 
     setMessage(mess)
-    if ((mess.user.id === data.id) && (!pathname.includes(`message/${mess.chat.id}`))) {
-      setState(`${styles.notification}`)
+
+    if ((mess.user.id !== data.id) && (!pathname.includes(`message/${mess.chat.id}`))) {
+      console.log(styles.notification);
+      
+      setState(styles.notification)
     }
   }
 

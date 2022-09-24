@@ -34,6 +34,9 @@ const DialogsList: React.FC = () => {
   }, [setSocket])
 
   const chatListener = (chat) => {
+    console.log(chat);
+    console.log(data);
+    
     if ( !chat.users.find(item => item.id === data.id) ) return
     
     // setChatsList([...chatsList, chat])
