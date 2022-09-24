@@ -17,7 +17,7 @@
   position: absolute;
   right: 15px;
   top: 15px;
-  height: 8%;
+  min-height: 8%;
   width: 20%;
   background-color: #C1F7EE;
   margin-top: 5%;
@@ -65,9 +65,8 @@
   position: absolute;
   height: 6px;
   width: 70px;
-  // background-color: #94DACD;
   margin-top: 12.25px;
-  margin-left: 40px;
+  margin-left: 50px;
   -webkit-animation: exit 3s ease-in-out ;
   animation: exit 3s ease-in-out ;
 }

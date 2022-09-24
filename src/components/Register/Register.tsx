@@ -21,7 +21,7 @@ const Register: React.FC<RegisterProps> = (props) => {
     defaultValues: {
       fullName: 'Вася Пупкин',
       email: 'test@mail.ru',
-      password: '123456',
+      password: '',
     },
     mode: "onBlur"
   })

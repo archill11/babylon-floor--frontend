@@ -21,7 +21,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const { register, handleSubmit, formState: { errors, isValid, isSubmitting} } = useForm({
     defaultValues: {
       email: 'test@mail.ru',
-      password: '123456',
+      password: '',
     },
     mode: "onBlur"
   })
