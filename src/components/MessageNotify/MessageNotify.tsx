@@ -31,6 +31,10 @@ const MessageNotify: React.FC = () => {
   }, [setSocket])
 
   const messageListener = (mess) => {
+    console.log('mess',mess);
+    console.log('items',items);
+
+    
     if ( !items.find(item => item.id === mess.chat.id) ) return
 
     setMessage(mess)
