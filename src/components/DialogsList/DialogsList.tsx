@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
 import { AppDispatch, RootState } from '../../redux/store'
+import './DialogsList.scss'
 import { io, Socket } from 'socket.io-client'
 
-
-import './DialogsList.scss'
 
 
 
@@ -28,7 +27,6 @@ const DialogsList: React.FC = () => {
   React.useEffect(() => {
     setChatsList(items)
   }, [items])
-
 
   React.useEffect(() => {
     const newSocket = io(`${process.env.REACT_APP_API_URL}`)
