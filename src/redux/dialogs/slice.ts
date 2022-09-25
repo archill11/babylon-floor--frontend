@@ -16,7 +16,6 @@ const dialogsSlice = createSlice({
     extraReducers: (builder) => {
       builder.addCase(fethMyDialogs.pending, (state) => {
         state.status = status.LOADING
-        state.items = []
       })
       builder.addCase(fethMyDialogs.fulfilled, (state, action) => {
         state.status = status.SUCCESS
