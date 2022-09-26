@@ -23,7 +23,8 @@
 }
 
 .Dialog__message__text {
-    width: 320px;
     border: 1px solid #000;
     padding: 10px;
+    max-width: 320px;
+    width: 60vw;
 }

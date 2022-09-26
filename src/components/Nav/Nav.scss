@@ -8,10 +8,24 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     gap: 5px;
     align-content: start;
+
+    @media (max-width: 776px) {
+      grid-auto-flow: column;
+      background-color: #fff;
+      justify-content: space-around;
+      align-items: center;
+      align-content: center;
+      font-size: 19px;
+      // position: fixed;
+    }
 }
 
 .nav__el__settings {
     margin-top: 20px;
+
+    @media (max-width: 776px) {
+      margin: 0;
+    }
 }
 
 .linkBtn {

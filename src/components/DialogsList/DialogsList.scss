@@ -6,6 +6,11 @@
     padding: 20px;
     width: 240px;
     height: 100%;
+
+    @media (max-width: 776px) {
+      width: 100vw;
+      padding: 5px;
+    }
 }
 
 .dialog-item-wrappr {
@@ -14,19 +19,11 @@
   grid-auto-flow: column;
   justify-content: start;
   align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.5);
+  padding-bottom: 8px;
+  border-radius: 0;
 }
 
-.dialog-item-wrappr::before {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  width: 222px;
-  height: 1px;
-  font-size: 20px;
-  right: -10px;
-  display: block;
-  background: #000;
-}
 
 .dialogs__item {
   position: relative;

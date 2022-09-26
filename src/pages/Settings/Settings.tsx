@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { fethUpdateUser } from '../../redux/users/asyncActions';
 import spiner from '../../assets/img/spiner.svg'
+import { useMatchMedia } from '../../hooks/use-match-media';
 
 import styles from './Settings.module.scss'
 
@@ -14,6 +15,7 @@ const Settings: React.FC = () => {
   const dispatch = useDispatch()
   const { status } = useSelector((state) => state.users)   
   const [drag, setDrag] = React.useState(false)
+  const { isMobile } = useMatchMedia()
 
   const { register, handleSubmit, formState: { errors, isValid} } = useForm({
     defaultValues: {
@@ -82,7 +84,8 @@ const Settings: React.FC = () => {
 
           <div className={styles.DND}>
           <div className={styles.title}>изменить аватар</div> 
-            {drag 
+          {!isMobile && 
+           (  drag 
               ? <div
                   onDragStart={e => dragStartHandler(e)}
                   onDragLeave={e => dragLeaveHandler(e)}
@@ -97,12 +100,12 @@ const Settings: React.FC = () => {
                   onDragOver={e => dragStartHandler(e)}
                   className={styles.dropAreaF}
                 >перетащите файл чтобы загрузить</div>
-            }
+            )}
           </div>
 
           <form onSubmit={handleSubmit(submitFile)} className={styles.form} action="Login ">
             <div className={styles.header}>
-              <div className={styles.title}>или нажмите</div> 
+              <div className={styles.title}>{!isMobile && 'или нажмите'}</div> 
             </div>
             <input placeholder='file' type="file" name="name" id="n1" 
               accept='img/*,.png,.jpg,.gif,.web'

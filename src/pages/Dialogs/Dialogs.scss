@@ -3,6 +3,10 @@
     grid-template-rows: 1fr;
     gap: 5px;
     justify-content: space-between;
+
+    @media (max-width: 776px) {
+      
+    }
 }
 
 

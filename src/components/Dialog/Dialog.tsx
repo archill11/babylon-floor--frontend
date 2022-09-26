@@ -5,10 +5,12 @@ import { DialogMessage } from '../DialogMessage/DialogMessage'
 import { useDispatch, useSelector } from 'react-redux'
 import { fethMessages, sendMessage } from '../../redux/dialogs/asyncActions'
 import { io, Socket } from 'socket.io-client'
-
-import './Dialog.scss'
 import { useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from '../../redux/store'
+import { useMatchMedia } from '../../hooks/use-match-media'
+import { Link } from 'react-router-dom'
+
+import './Dialog.scss'
 
 
 const Dialog: React.FC = () => {
@@ -20,6 +22,7 @@ const Dialog: React.FC = () => {
   const [inputVal, setInputVal] = React.useState('')
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)
   const [messagesL, setMessagesL] = React.useState([])
+  const { isMobile } = useMatchMedia()
 
 
   React.useEffect(() => {
@@ -43,9 +46,7 @@ const Dialog: React.FC = () => {
   }
 
   React.useEffect(() => {
-    console.log('7777',process.env.PORT);
-    
-    
+
     const newSocket = io(`${process.env.REACT_APP_API_URL}`)
     setSocket(newSocket)
   }, [setSocket])
@@ -71,6 +72,7 @@ const Dialog: React.FC = () => {
   
   return(
     <div className="DialogWrapp">
+      {isMobile && <Link className='DialogWrapp__back' to='/message'>🔙</Link>}
       <div className="main__Dialog">
         {mapedData}
         <PostsInput 

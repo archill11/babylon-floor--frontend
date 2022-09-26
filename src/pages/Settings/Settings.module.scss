@@ -1,6 +1,13 @@
 .profileSettings {
   display: grid;
   gap: 50px;
+  @media (max-width: 776px) {
+    gap: 30px;
+  }
+}
+.title {
+  font-weight: 600;
+  font-size: 19px;
 }
 
 .DND {
@@ -9,6 +16,10 @@
   display: grid;
   gap: 5px;
   padding: 5px;
+
+  @media (max-width: 776px) {
+    height: 10px;
+  }
 }
 
 .dropAreaT{

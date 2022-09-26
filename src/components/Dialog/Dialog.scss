@@ -1,18 +1,41 @@
 .main__Dialog {
     display: grid;
-    align-content: space-evenly;
     align-content: flex-end;
     gap: 30px;
     padding: 30px;
     width: 539px;
-    height: 100%;
+    overflow: auto;
+
+    @media (max-width: 776px) {
+      width: 100vw;
+
+    }
 }
 
 
 .DialogWrapp {
+  display: grid;
     background-color: blanchedalmond;
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
+
+    @media (max-width: 776px) {
+      width: 100vw;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1000;
+    }
+
+}
+
+.DialogWrapp__back {
+  text-decoration: none;
+  font-size: 40px;
+  padding: 10px;
+  position: absolute;
+
 
 }

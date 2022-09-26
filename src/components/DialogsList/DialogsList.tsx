@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
 import { AppDispatch, RootState } from '../../redux/store'
-import './DialogsList.scss'
 import { io, Socket } from 'socket.io-client'
 
+import './DialogsList.scss'
 
 
 

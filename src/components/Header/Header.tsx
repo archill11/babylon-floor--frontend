@@ -4,7 +4,6 @@ import { LogoSvg } from '../LogoSvg/LogoSvg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout, selectIsAuth } from '../../redux/auth/slice';
-import { AppDispatch } from '../../redux/store';
 
 import styles from './Header.module.scss'
 
@@ -27,7 +26,7 @@ const Header: React.FC = () => {
             </div>
           </Link>
 
-            <div className="header__buttons"> 
+            <div className={styles.header__buttons}> 
               <button className={styles.authButton} onClick={Logout}> Выйти </button> 
             </div>
         </header>

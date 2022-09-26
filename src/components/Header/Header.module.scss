@@ -3,10 +3,11 @@
 .header {
     background-color: blueviolet;
     height: 80px;
+    padding: 0 10px;
     display: grid;
     grid-auto-flow: column;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     grid-area: H;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
@@ -16,6 +17,9 @@
 .header__logo__img {
     height: 78px;
     pointer-events: none;
+}
+.header__buttons{
+  justify-self: end;
 }
 
 
