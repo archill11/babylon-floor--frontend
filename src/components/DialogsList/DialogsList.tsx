@@ -1,14 +1,19 @@
 // @ts-nocheck
 import React from 'react'
+import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
 import { AppDispatch, RootState } from '../../redux/store'
 import { io, Socket } from 'socket.io-client'
+import { dilogsListBGColorDark, dilogsListBGColorLite } from '../../libs/styled_variables'
 
 import './DialogsList.scss'
 
-
+const Wrapper = styled.div`
+background-color: ${({ theme }) => theme.theme === 'light' ? dilogsListBGColorLite : dilogsListBGColorDark };
+color: ${({ theme }) => theme.theme === 'light' ? "#000" : "#fff" }
+`
 
 const DialogsList: React.FC = () => {
 
@@ -64,9 +69,9 @@ const DialogsList: React.FC = () => {
 
 
   return(
-    <div className="main__dialogs">
+    <Wrapper className="main__dialogs">
       {mapedData}
-    </div>
+    </Wrapper>
   )
 }
 

@@ -1,5 +1,6 @@
 //@ts-nocheck
 import React from 'react'
+import styled from 'styled-components'
 import { PostsInput } from '../PostsInput/PostsInput'
 import { DialogMessage } from '../DialogMessage/DialogMessage'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,9 +10,14 @@ import { useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from '../../redux/store'
 import { useMatchMedia } from '../../hooks/use-match-media'
 import { Link } from 'react-router-dom'
+import { dilogListBGColorDark, dilogListBGColorLite } from '../../libs/styled_variables'
 
 import './Dialog.scss'
 
+const Wrapper = styled.div`
+background-color: ${({ theme }) => theme.theme === 'light' ? dilogListBGColorLite : dilogListBGColorDark};
+color: ${({ theme }) => theme.theme === 'light' ? "#000" : "#fff" }
+`
 
 const Dialog: React.FC = () => {
 
@@ -71,7 +77,7 @@ const Dialog: React.FC = () => {
   })
   
   return(
-    <div className="DialogWrapp">
+    <Wrapper className="DialogWrapp">
       {isMobile && <Link className='DialogWrapp__back' to='/message'>🔙</Link>}
       <div className="main__Dialog">
         {mapedData}
@@ -80,7 +86,7 @@ const Dialog: React.FC = () => {
           className={'posts__input--sticky'} placeholder={'your message'} btnValue={'send'}
         />
       </div>
-    </div>
+    </Wrapper>
   )
 }
 

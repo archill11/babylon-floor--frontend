@@ -7,12 +7,10 @@
     gap: 15px;
     grid-template-columns: 170px auto auto;
     grid-template-rows: 80px auto;   
-    // min-height: 1000px;
     max-width: 1000px;
     height: 100vh;
     margin: 0 auto;
 
-    
     @media (max-width: 776px) {
       min-height: 100vh;
       height: 100vh;
