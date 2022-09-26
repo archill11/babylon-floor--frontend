@@ -12,9 +12,7 @@ type PostsInputProps = {
   setInputVal: () => void
 }
 
-const InputS = styled.div`
-background-color: ${({ theme }) => theme.theme === 'light' ? headerBGColorLite : headerBGColorDark}
-`
+
 
 
 const PostsInput: React.FC<PostsInputProps> = (props) => {
