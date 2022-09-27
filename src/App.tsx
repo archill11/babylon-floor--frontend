@@ -17,9 +17,7 @@ import { Settings } from './pages/Settings/Settings.tsx';
 import { pageBGColorDark, pageBGColorLite } from './libs/styled_variables';
 import { ThemeProvider } from 'styled-components'
 
-
 import './App.scss';
-
 
 const Wrapper = styled.div`
 background-color: ${({ theme }) => theme.theme === 'light' ? pageBGColorLite : pageBGColorDark}
@@ -32,11 +30,9 @@ const App: React.FC = () => {
   const isAuth = useSelector( selectIsAuth )
   const { logined, data } = useSelector( (state) => state.auth )
 
-
   React.useEffect(() => {
     dispatch(fetchAuthMe())
   }, [logined])
-
 
  
   return (

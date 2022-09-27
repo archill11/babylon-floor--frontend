@@ -1,3 +1,6 @@
+export const white = '#fff'
+export const black = '#000'
+
 export const headerBGColorLite = '#8a2be2'
 export const headerBGColorDark = '#27103c'
 

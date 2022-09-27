@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react'
+import styled from 'styled-components'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { fethUpdateUser } from '../../redux/users/asyncActions';
@@ -7,8 +8,17 @@ import spiner from '../../assets/img/spiner.svg'
 import { useMatchMedia } from '../../hooks/use-match-media';
 
 import styles from './Settings.module.scss'
+import { black, white } from '../../libs/styled_variables';
 
-
+const SettingsWrapper = styled.div`
+color: ${({ theme }) => theme.theme === 'light' ? black : white}
+`
+const DropAreaT = styled.div`
+border-color: ${({ theme }) => theme.theme === 'light' ? black : white}
+`
+const DropAreaF = styled.div`
+border-color: ${({ theme }) => theme.theme === 'light' ? black : white}
+`
 
 const Settings: React.FC = () => {
 
@@ -65,7 +75,7 @@ const Settings: React.FC = () => {
 
   
   return(
-    <div className={styles.settingsWrapper}>
+    <SettingsWrapper className={styles.settingsWrapper}>
       <div className={styles.profileSettings}>
 
       { status === 'loading' ? <img src={spiner} height={150} alt="search"></img> :
@@ -86,20 +96,20 @@ const Settings: React.FC = () => {
           <div className={styles.title}>изменить аватар</div> 
           {!isMobile && 
            (  drag 
-              ? <div
+              ? <DropAreaT
+                  className={styles.dropAreaT}
                   onDragStart={e => dragStartHandler(e)}
                   onDragLeave={e => dragLeaveHandler(e)}
                   onDragOver={e => dragStartHandler(e)}
-                  className={styles.dropAreaT}
                   onDrop={e => dropHandler(e)}
-                >отпустите файл чтобы загрузить</div>
-              : <div 
+                >отпустите файл чтобы загрузить</DropAreaT>
+              : <DropAreaF 
+                  className={styles.dropAreaF}
                   onClick={() => filePicker.current.click() }
                   onDragStart={e => dragStartHandler(e)}
                   onDragLeave={e => dragLeaveHandler(e)}
                   onDragOver={e => dragStartHandler(e)}
-                  className={styles.dropAreaF}
-                >перетащите файл чтобы загрузить</div>
+                >перетащите файл чтобы загрузить</DropAreaF>
             )}
           </div>
 
@@ -119,7 +129,7 @@ const Settings: React.FC = () => {
       }
 
       </div>
-    </div>
+    </SettingsWrapper>
    )
 }
 

@@ -3,8 +3,8 @@
   align-items: center;
   align-content: flex-start;
   gap: 20px;
-  width: 100vw;
   @media (max-width: 776px) {
+    width: 100vw;
     overflow: auto;
     justify-items: center;
   }

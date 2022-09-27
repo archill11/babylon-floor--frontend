@@ -1,5 +1,4 @@
 //@ts-nocheck
-import Media from "react-media";
 import styled from 'styled-components'
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";

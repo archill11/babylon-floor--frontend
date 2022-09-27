@@ -6,13 +6,19 @@ import { Link, useParams } from 'react-router-dom'
 import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
 import { AppDispatch, RootState } from '../../redux/store'
 import { io, Socket } from 'socket.io-client'
-import { dilogsListBGColorDark, dilogsListBGColorLite } from '../../libs/styled_variables'
+import { black, dilogsListBGColorDark, dilogsListBGColorLite, white } from '../../libs/styled_variables'
 
 import './DialogsList.scss'
 
 const Wrapper = styled.div`
-background-color: ${({ theme }) => theme.theme === 'light' ? dilogsListBGColorLite : dilogsListBGColorDark };
-color: ${({ theme }) => theme.theme === 'light' ? "#000" : "#fff" }
+  background-color: ${({ theme }) => theme.theme === 'light' ? dilogsListBGColorLite : dilogsListBGColorDark };
+  color: ${({ theme }) => theme.theme === 'light' ? black : white }
+`
+
+const StyledLink = styled(Link)`
+ > * {
+  color: ${({ theme }) => theme.theme === 'light' ? black : white }
+}
 `
 
 const DialogsList: React.FC = () => {
@@ -62,7 +68,7 @@ const DialogsList: React.FC = () => {
     return (
       <div className="dialog-item-wrappr" key={item.id}>
         <img className="dialogs__item-avatar" src={`${process.env.REACT_APP_API_URL}/${item.users[0].avatarUrl}`} alt="ava" />
-        <Link to={`/message/${item.id}`} className={'linkBtn dialogs__item ' + active} >{item.users[0].fullName}</Link>
+        <StyledLink to={`/message/${item.id}`} className={'linkBtn dialogs__item ' + active}><span>{item.users[0].fullName}</span></StyledLink>
       </div>
     )
   })
