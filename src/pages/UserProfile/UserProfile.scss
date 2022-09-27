@@ -4,7 +4,6 @@
     grid-area: M;
     padding: 10px;
     display: grid;
-    gap: 10px;
     align-content: start;
     max-height: 1200px;
     overflow: auto;
@@ -17,6 +16,7 @@
 
 .main__posts {
   display: grid;
+  gap: 10px;
 }
 
 .posts__last-posts {
