@@ -1,13 +1,14 @@
 // @ts-nocheck
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
-import { AppDispatch } from '../../redux/store'
 import { fethUsers } from '../../redux/users/asyncActions'
 import { folow } from '../../redux/users/slice'
 import { io, Socket } from 'socket.io-client'
 import spiner from './../../assets/img/spiner.svg'
+import { selectAuthData } from '../../redux/auth/selectors'
+import { selectUsersData } from '../../redux/users/selectors'
+import { useAppDispatch, useAppSelector } from '../../hooks/use-redux'
 
 import './UsersList.scss';
 
@@ -16,12 +17,11 @@ import './UsersList.scss';
 
 
 const UsersList: React.FC = () => {        
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { items, status, folows } = useSelector((state) => state.users)   
-  const  { data }  = useSelector((state) => state.auth)
-  const dialogs = useSelector((state) => state.dialogs.items)
-  const { createdDialogId } = useSelector((state) => state.dialogs)
+  const { items, status, folows } = useAppSelector(selectUsersData)   
+  const  { data }  = useAppSelector(selectAuthData)
+  const dialogs = useAppSelector((state) => state.dialogs.items)
   const [addMessLoading, setAddMessLoading]  = React.useState(false)
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)
   const [chatId, setChatId] = React.useState(null)
@@ -98,7 +98,6 @@ const UsersList: React.FC = () => {
           <button disabled={addMessLoading} onClick={() => openDialogl(item.id)}>{addMessLoading ? <img src={spiner} height={18} alt="ava" /> : 'send message'}</button>
       </div>
     ) 
-     
   })
   
   return(
@@ -106,7 +105,7 @@ const UsersList: React.FC = () => {
       {status === 'loading' ? <img src={spiner} height={150} alt="search"></img> : usersList}
     </div>
   )
-  }
+}
 
 
 export {UsersList}

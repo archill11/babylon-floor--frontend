@@ -1,9 +1,11 @@
 // @ts-nocheck
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import { io, Socket } from 'socket.io-client'
+import { useAppDispatch, useAppSelector } from '../../hooks/use-redux'
+import { selectAuthData } from '../../redux/auth/selectors'
 import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
+import { selectDialogsData } from '../../redux/dialogs/selectors'
 
 import styles from  './MessageNotify.module.scss'
 
@@ -16,9 +18,8 @@ import styles from  './MessageNotify.module.scss'
 
 const MessageNotify: React.FC = () => {
 
-  const dispatch = useDispatch()
-  const { data } = useSelector( (state) => state.auth )
-  const { items } = useSelector( (state) => state.dialogs )
+  const dispatch = useAppDispatch()
+  const { data } = useAppSelector( selectAuthData )
   const [state, setState] = React.useState(styles.hideNotify)
   const [message, setMessage] = React.useState(null)
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)

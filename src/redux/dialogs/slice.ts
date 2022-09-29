@@ -1,11 +1,11 @@
-//@ts-nocheck
+
 import { createSlice } from "@reduxjs/toolkit";
-import { fethMyDialogs, fethMessages, createDialog } from "./asyncActions";
-import { dialogsSliceState, status } from "./types";
+import { fethMyDialogs, fethMessages } from "./asyncActions";
+import { Dialog, dialogsSliceState, status } from "./types";
 
 
 
-const initialState: dialogsSliceState = { items: [], messages: [], createdDialogId: null, status: status.LOADING, }
+const initialState: dialogsSliceState = { items: [], messages: [], createdDialogId: '', status: status.LOADING, }
 
 const dialogsSlice = createSlice({
     name: "dialogs",

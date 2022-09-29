@@ -1,7 +1,15 @@
+import { User } from "../users/types"
+
+export interface UserChatList {
+  dialogs: Dialog[],
+  userId: number
+}
+
 export type Dialog = {
   id: string,
   createdAt: string,
   updatedAt: string,
+  users : User[]
 }
 
 export type Message = {
@@ -20,4 +28,9 @@ export enum status {
   ERROR= 'error',
 }
 
-export interface dialogsSliceState { items: Dialog[], messages: Message[], createdDialogId: any, status: status} 
+export interface dialogsSliceState { 
+  items: Dialog[], 
+  messages: Message[], 
+  createdDialogId: number | string, 
+  status: status
+} 

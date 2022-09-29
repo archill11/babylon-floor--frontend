@@ -1,11 +1,12 @@
-//@ts-nocheck
 import styled from 'styled-components'
 import { LogoSvg } from '../LogoSvg/LogoSvg';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout, selectIsAuth } from '../../redux/auth/slice';
+import { selectIsAuth } from '../../redux/auth/selectors';
 import { changeTheme } from '../../redux/app-context/slice';
 import { headerBGColorDark, headerBGColorLite } from '../../libs/styled_variables';
+import { logout } from '../../redux/auth/slice';
+import { selectAppContext } from '../../redux/app-context/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-redux';
 
 import styles from './Header.module.scss'
 
@@ -16,9 +17,9 @@ background-color: ${({ theme }) => theme.theme === 'light' ? headerBGColorLite :
 
 const Header: React.FC = () => {
                                            
-  const dispatch = useDispatch()
-  const isAuth = useSelector( selectIsAuth )
-  const { theme } = useSelector( state => state.appContext )
+  const dispatch = useAppDispatch()
+  const isAuth = useAppSelector( selectIsAuth )
+  const { theme } = useAppSelector( selectAppContext )
 
   const Logout = () => {
     dispatch(logout())

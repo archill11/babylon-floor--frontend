@@ -1,68 +1,66 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fethUpdateUser, fethUsers } from "./asyncActions";
-import { fethOneUser } from "./asyncActions"; 
+import { fethOneUser, fethUpdateUser, fethUsers } from "./asyncActions";
 import { usersSliceState, status, } from "./types";
 
 
 
-const initialState: usersSliceState = { items: [], user: {}, folows: [], status: status.SUCCESS, }
+const initialState: usersSliceState = { items: [], user: null, folows: [], status: status.SUCCESS, }
 
 const usersSlice = createSlice({
-    name: "users",
-    initialState: initialState,
+  name: "users",
+  initialState: initialState,
 
-    reducers: {
-      folow(state, action) {
-        if ( state.folows.includes(action.payload, 0) ) {
-          const indx = state.folows.indexOf(action.payload)
-          state.folows.splice(indx, 1) 
-        }else{
-          state.folows.push(action.payload) 
-        }
-      },
+  reducers: {
+    folow(state, action) {
+      if ( state.folows.includes(action.payload, 0) ) {
+        const indx = state.folows.indexOf(action.payload)
+        state.folows.splice(indx, 1) 
+      }else{
+        state.folows.push(action.payload) 
+      }
+    },
+  }, 
 
-    }, 
-
-    extraReducers: (builder) => {
-      builder.addCase(fethUsers.pending, (state) => {
-        state.status = status.LOADING
-        state.items = []
-      })
-      builder.addCase(fethUsers.fulfilled, (state, action) => {
-        state.status = status.SUCCESS
-        state.items = action.payload
-      })
-      builder.addCase(fethUsers.rejected, (state) => {
-        state.status = status.ERROR
-        state.items = []
-        alert('Ошибка при запросе данных')
-      })
-
-      builder.addCase(fethOneUser.pending, (state) => {
-        state.status = status.LOADING
-        state.user = {}
-      })
-      builder.addCase(fethOneUser.fulfilled, (state, action) => {
-        state.status = status.SUCCESS
-        state.user = action.payload
-      })
-      builder.addCase(fethOneUser.rejected, (state) => {
-        state.status = status.ERROR
-        state.user = {}
-        alert('Ошибка при запросе данных')
-      })
-
-      builder.addCase(fethUpdateUser.pending, (state) => {
-        state.status = status.LOADING
-      })
-      builder.addCase(fethUpdateUser.fulfilled, (state, action) => {
-        state.status = status.SUCCESS
-      })
-      builder.addCase(fethUpdateUser.rejected, (state) => {
-        state.status = status.ERROR
-        alert('Ошибка при отправке изменения')
-      })
-    }
+  extraReducers: (builder) => {
+////////fethUsers 
+    builder.addCase(fethUsers.pending, (state) => {
+      state.status = status.LOADING
+      state.items = []
+    })
+    builder.addCase(fethUsers.fulfilled, (state, action) => {
+      state.status = status.SUCCESS
+      state.items = action.payload
+    })
+    builder.addCase(fethUsers.rejected, (state) => {
+      state.status = status.ERROR
+      state.items = []
+      alert('Ошибка при запросе данных')
+    })
+////////fethOneUser 
+    builder.addCase(fethOneUser.pending, (state) => {
+      state.status = status.LOADING
+    })
+    builder.addCase(fethOneUser.fulfilled, (state, action) => {
+      state.status = status.SUCCESS
+      state.user = action.payload
+    })
+    builder.addCase(fethOneUser.rejected, (state) => {
+      state.status = status.ERROR
+      alert('Ошибка при запросе данных')
+    })
+////////fethUpdateUser 
+    builder.addCase(fethUpdateUser.pending, (state) => {
+      state.status = status.LOADING
+    })
+    builder.addCase(fethUpdateUser.fulfilled, (state) => {
+      state.status = status.SUCCESS
+    })
+    builder.addCase(fethUpdateUser.rejected, (state) => {
+      state.status = status.ERROR
+      alert('Ошибка при отправке изменения')
+    })
+  }
 })
+
 export const { folow } = usersSlice.actions;
 export default usersSlice.reducer;

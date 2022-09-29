@@ -1,12 +1,14 @@
-// @ts-nocheck
+//@ts-nocheck
 import React from 'react'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/use-redux'
 import { Link, useParams } from 'react-router-dom'
 import { fethMyDialogs } from '../../redux/dialogs/asyncActions'
-import { AppDispatch, RootState } from '../../redux/store'
 import { io, Socket } from 'socket.io-client'
 import { black, dilogsListBGColorDark, dilogsListBGColorLite, white } from '../../libs/styled_variables'
+import { selectAuthData } from '../../redux/auth/selectors'
+import { selectDialogsData } from '../../redux/dialogs/selectors'
+import { Dialog } from '../../redux/dialogs/types'
 
 import './DialogsList.scss'
 
@@ -21,19 +23,27 @@ const StyledLink = styled(Link)`
 }
 `
 
+
+export type socketChatType = {
+  id: number | string;
+  users: [{id: number}];
+  createdAt: string;
+  updatedAt: string;
+};
+
+
 const DialogsList: React.FC = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {id} = useParams()
-  const { items } = useSelector((state: RootState) => state.dialogs)
-  const { data } = useSelector((state: RootState) => state.auth)
+  const { items } = useAppSelector(selectDialogsData)
+  const { data } = useAppSelector(selectAuthData)
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)
-  const [chatsList, setChatsList] = React.useState([])
+  const [chatsList, setChatsList] = React.useState<Dialog[]>([])
 
   React.useEffect(() => {
     dispatch(fethMyDialogs())
   }, [])
-
 
   React.useEffect(() => {
     setChatsList(items)
@@ -44,10 +54,8 @@ const DialogsList: React.FC = () => {
     setSocket(newSocket)
   }, [setSocket])
 
-  const chatListener = (chat) => {
-    console.log(chat);
-    console.log(data);
-    
+  const chatListener = (chat: socketChatType) => {
+    console.log('chat',chat);
     if ( !chat.users.find(item => item.id === data.id) ) return
     
     // setChatsList([...chatsList, chat])

@@ -7,7 +7,7 @@ const queries = [
   "(min-width: 1200px)"
 ]
 
-export const useMatchMedia = () => {
+export const useMatchMedia = (): any => {
   
   const mediaQueryLists = queries.map(query => matchMedia(query))
   

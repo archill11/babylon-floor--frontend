@@ -1,9 +1,6 @@
-//@ts-nocheck
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import axios from "../../utils/axios"
+
+import { createSlice } from "@reduxjs/toolkit"
 import { themeState } from "./types"
-
-
 
 
 

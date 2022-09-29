@@ -1,11 +1,15 @@
-// @ts-nocheck
+//@ts-nocheck
 import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAuthMe, fetchLogin, selectIsAuth } from '../../redux/auth/slice';
+import { selectIsAuth } from '../../redux/auth/selectors';
+import { fetchAuthMe, fetchLogin } from '../../redux/auth/asyncActions';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-redux';
+import { LoginDto } from '../../redux/auth/types';
 
 import styles from './Login.module.scss'
+
+
 
 
 type LoginProps = {
@@ -14,8 +18,8 @@ type LoginProps = {
 
 const Login: React.FC<LoginProps> = (props) => {
 
-  const dispatch = useDispatch()
-  const isAuth = useSelector( selectIsAuth )
+  const dispatch = useAppDispatch()
+  const isAuth = useAppSelector( selectIsAuth )
   const navigate = useNavigate();
   const location = useLocation()
   const { register, handleSubmit, formState: { errors, isValid, isSubmitting} } = useForm({
@@ -26,18 +30,16 @@ const Login: React.FC<LoginProps> = (props) => {
     mode: "onBlur"
   })
 
-  const submit = async (args) => {
+  const submit = async (args: LoginDto) => {
     try {
-      const data = await dispatch(fetchLogin(args))
-      const token = data.payload.token
+      const { payload: token } = await dispatch(fetchLogin(args))
       if ( token ) {
         window.localStorage.setItem('token', `Bearer ${token}`)
         dispatch(fetchAuthMe())
       }
     } catch (err) {
       alert( 'не удалось авторизоваться')
-      console.log( err)
-      // console.log(err);
+      console.log(err)
     }
   }
 
@@ -55,14 +57,14 @@ const Login: React.FC<LoginProps> = (props) => {
               <div className={styles.title}>войти</div> 
               <button className={styles.close} onClick={() =>props.setState('')} type='button'>X</button>
             </div>
-            <input placeholder='E-mail' type="text" name="name" id="n1" 
+            <input placeholder='E-mail' type="text" id="n1" 
               error={Boolean(errors.email?.message)}
               // helperText={errors.email?.message}
               {...register('email', {required: true})}
             />
             {errors?.email && <span>❗️укажите почту</span>}
 
-            <input placeholder='пароль' type="text" name="name" id="n1" 
+            <input placeholder='пароль' type="text" id="n1" 
               error={Boolean(errors.password?.message)}
               // helperText={errors.password?.message}
               {...register('password', {required: true})}

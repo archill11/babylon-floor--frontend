@@ -3,14 +3,16 @@ import React from 'react'
 import styled from 'styled-components'
 import { PostsInput } from '../PostsInput/PostsInput'
 import { DialogMessage } from '../DialogMessage/DialogMessage'
-import { useDispatch, useSelector } from 'react-redux'
-import { fethMessages, sendMessage } from '../../redux/dialogs/asyncActions'
+import { useAppDispatch, useAppSelector } from '../../hooks/use-redux'
+import { fethMessages } from '../../redux/dialogs/asyncActions'
 import { io, Socket } from 'socket.io-client'
 import { useParams } from 'react-router-dom'
-import { AppDispatch, RootState } from '../../redux/store'
 import { useMatchMedia } from '../../hooks/use-match-media'
 import { Link } from 'react-router-dom'
 import { dilogListBGColorDark, dilogListBGColorLite } from '../../libs/styled_variables'
+import { selectAuthData } from '../../redux/auth/selectors'
+import { selectDialogsData } from '../../redux/dialogs/selectors'
+import { Message } from '../../redux/dialogs/types'
 
 import './Dialog.scss'
 
@@ -19,20 +21,36 @@ background-color: ${({ theme }) => theme.theme === 'light' ? dilogListBGColorLit
 color: ${({ theme }) => theme.theme === 'light' ? "#000" : "#fff" }
 `
 
+export type socketMessType = {
+  id: number | string;
+  name: string;
+  avatarUrl: string;
+  chat: {id: number};
+  user: {id: number};
+  state: boolean;
+  text: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+
+
 const Dialog: React.FC = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {id} = useParams()
-  const { items, messages } = useSelector((state: RootState) => state.dialogs)
-  const { data } = useSelector((state: RootState) => state.auth)
+  const { items, messages } = useAppSelector(selectDialogsData)
+  const { data } = useAppSelector(selectAuthData)
   const [inputVal, setInputVal] = React.useState('')
   const [socket, setSocket] = React.useState<Socket<DefaultEventsMap, DefaultEventsMap> | null>(null)
-  const [messagesL, setMessagesL] = React.useState([])
+  const [messagesL, setMessagesL] = React.useState<(Message | socketMessType)[]>([])
   const { isMobile } = useMatchMedia()
 
 
   React.useEffect(() => {
-    dispatch(fethMessages(id))
+    if ( id ) {
+      dispatch(fethMessages(id))
+    }
   }, [id])
 
   React.useEffect(() => {
@@ -52,15 +70,16 @@ const Dialog: React.FC = () => {
   }
 
   React.useEffect(() => {
-
     const newSocket = io(`${process.env.REACT_APP_API_URL}`)
     setSocket(newSocket)
   }, [setSocket])
 
-  const messageListener = (mess) => {
+  const messageListener = (mess: socketMessType) => {
+    console.log('mess', mess);
+    
     if ( Number(mess.chat.id) !== Number(id) ) return
 
-    setMessagesL([...messagesL, mess])
+    setMessagesL( [...messagesL, mess])
   }
 
   React.useEffect(() => {
@@ -73,7 +92,10 @@ const Dialog: React.FC = () => {
   
 
   const mapedData = messagesL.map((item) => {
-    return <DialogMessage name={item.name} message={item.text} src={`${process.env.REACT_APP_API_URL}/${item.avatarUrl}`} id={item.id} key={item.id}/>
+    return (
+      <DialogMessage name={item.name} message={item.text} key={item.id}
+        src={`${process.env.REACT_APP_API_URL}/${item.avatarUrl}`} 
+      />)
   })
   
   return(
@@ -83,7 +105,7 @@ const Dialog: React.FC = () => {
         {mapedData}
         <PostsInput 
           inputVal={inputVal} setInputVal={setInputVal} fn={sendMessageL}
-          className={'posts__input--sticky'} placeholder={'your message'} btnValue={'send'}
+          placeholder={'your message'} btnValue={'send'}
         />
       </div>
     </Wrapper>

@@ -1,13 +1,15 @@
-//@ts-nocheck
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axios";
+import { User } from "../users/types";
+import { Dialog, Message, UserChatList } from "./types";
 
 
-export const fethMyDialogs = createAsyncThunk<Item[], string[]>('dialogs/fethMyDialogs', async () => {
-  const { data } = await axios.get<Item[]>(`/chat` )
+export const fethMyDialogs = createAsyncThunk<Dialog[]>('dialogs/fethMyDialogs', async () => {
+  const { data } = await axios.get(`/chat` )
  
-  const dialogs =  data.dialogs.map((item: any) => { 
-    const index = item.users.findIndex((user: any) => user.id === data.userId)
+  const dialogs =  data.dialogs.map((item: Dialog) => { 
+    const index = item.users.findIndex((user: User) => user.id === data.userId)
     const newItem = JSON.parse(JSON.stringify(item))
     newItem.users.splice(index, 1)
     return newItem
@@ -15,8 +17,8 @@ export const fethMyDialogs = createAsyncThunk<Item[], string[]>('dialogs/fethMyD
   return dialogs;
 })
 
-export const fethMessages = createAsyncThunk<Item[], string[]>('dialogs/fethMessages', async (id) => {
-  const { data } = await axios.get<Item[]>(`/message/${id}` )
+export const fethMessages = createAsyncThunk<Message[], string>('dialogs/fethMessages', async (id) => {
+  const { data } = await axios.get(`/message/${id}` )
   return data;
 })
 

@@ -1,8 +1,7 @@
-//@ts-nocheck
 import React from 'react'
-import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
-import styled from 'styled-components'
-import { useDispatch, useSelector } from "react-redux";
+import {Routes, Route} from "react-router-dom";
+import styled, { ThemeProvider } from 'styled-components'
+import { useAppDispatch, useAppSelector } from './hooks/use-redux';
 import { Header } from './components/Header/Header';
 import { Dialogs } from './pages/Dialogs/Dialogs';
 import { UserProfile } from './pages/UserProfile/UserProfile';
@@ -10,12 +9,13 @@ import { Nav } from './components/Nav/Nav';
 import { UsersList } from "./pages/UsersList/UsersList";
 import { Auth } from "./pages/Auth/Auth";
 import { NotFound } from "./pages/NotFound";
-import { fetchAuthMe, selectIsAuth } from "./redux/auth/slice";
+import { selectAuthData, selectIsAuth } from "./redux/auth/selectors";
 import { Dialog } from './components/Dialog/Dialog';
 import { MessageNotify } from './components/MessageNotify/MessageNotify';
-import { Settings } from './pages/Settings/Settings.tsx';
+import { Settings } from './pages/Settings/Settings';
 import { pageBGColorDark, pageBGColorLite } from './libs/styled_variables';
-import { ThemeProvider } from 'styled-components'
+import { fetchAuthMe } from './redux/auth/asyncActions';
+import { selectAppContext } from './redux/app-context/selectors';
 
 import './App.scss';
 
@@ -25,10 +25,10 @@ background-color: ${({ theme }) => theme.theme === 'light' ? pageBGColorLite : p
 
 const App: React.FC = () => {
   
-  const { theme } = useSelector( state => state.appContext )
-  const dispatch = useDispatch()
-  const isAuth = useSelector( selectIsAuth )
-  const { logined, data } = useSelector( (state) => state.auth )
+  const { theme } = useAppSelector( selectAppContext )
+  const dispatch = useAppDispatch()
+  const isAuth = useAppSelector( selectIsAuth )
+  const { logined } = useAppSelector( selectAuthData )
 
   React.useEffect(() => {
     dispatch(fetchAuthMe())
@@ -43,19 +43,16 @@ const App: React.FC = () => {
             <Header/>
             <Nav />  
             <Routes>
-                <Route path="/profile/:id" element={ <UserProfile />} />
+              <Route path="/profile/:id" element={ <UserProfile /> } />
 
-                <Route path="/message*" element={ <Dialogs />}>
-                  <Route path=":id"  element={ <Dialog/> }/>
-                </Route>
+              <Route path="/message*" element={ <Dialogs /> }>
+                <Route path=":id"  element={ <Dialog/> } />
+              </Route>
 
-                <Route path="/user" element={ <UsersList />} />
-
-                <Route path="/settings" element={ <Settings />} />
-
-                <Route path="*" element={ <NotFound/> }/>
+              <Route path="/user" element={ <UsersList /> } />
+              <Route path="/settings" element={ <Settings /> } />
+              <Route path="*" element={ <NotFound/> } />
             </Routes>
-            
             <MessageNotify/>
           </div>
         }

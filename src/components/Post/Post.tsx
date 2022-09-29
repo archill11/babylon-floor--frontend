@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Button } from '../../components/Button/Button';
+import { Button } from '../Button/Button';
 import { black, white } from '../../libs/styled_variables';
 
 import './Post.scss'
@@ -7,8 +7,14 @@ import './Post.scss'
 const Wrapper = styled.div`
   color: ${({ theme }) => theme.theme === 'light' ? black : white }
 `
+type PostProps = {
+  value: string,
+  id: string,
+  likes: number,
+  src: string,
+}
 
-const Post = (props) => {
+const Post: React.FC<PostProps> = (props) => {
     const {value, likes, id, src} = props
     return(
         <Wrapper className='post-wrapp'>
@@ -21,7 +27,7 @@ const Post = (props) => {
                 </div>
             </div>
             <div className="post__likes">
-                <Button className='Btn--black' value={'likes: ' + likes}/>
+                <Button onClick={() => console.log('в разработке')} className='Btn--black' value={'likes: ' + likes}/>
             </div>
         </Wrapper>
     )
