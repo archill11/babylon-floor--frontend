@@ -1,4 +1,11 @@
+import { borderBGColorDark, borderBGColorLite, messageBGColorDark, messageBGColorLite } from '../../libs/styled_variables'
+import styled from 'styled-components'
 import './DialogMessage.scss'
+
+const Dialog__message = styled.div`
+border-color: ${({ theme }) => theme.theme === 'light' ? borderBGColorLite : borderBGColorDark};
+background-color: ${({ theme }) => theme.theme === 'light' ? messageBGColorLite : messageBGColorDark}
+`
 
 type DialogMessageProps = {
   name: string,
@@ -14,9 +21,9 @@ const DialogMessage: React.FC<DialogMessageProps> = (props) => {
                 <img className="Dialog__message__avatar__img" src={src}alt="ava" />
                 <div className="Dialog__message__avatar__name">{name}</div>
             </div>
-            <div className="Dialog__message__text">
+            <Dialog__message className="Dialog__message__text">
                 {message}
-            </div>
+            </Dialog__message>
         </div>
     )
 }
