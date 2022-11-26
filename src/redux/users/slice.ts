@@ -23,42 +23,45 @@ const usersSlice = createSlice({
 
   extraReducers: (builder) => {
 ////////fethUsers 
-    builder.addCase(fethUsers.pending, (state) => {
-      state.status = status.LOADING
-      state.items = []
-    })
-    builder.addCase(fethUsers.fulfilled, (state, action) => {
-      state.status = status.SUCCESS
-      state.items = action.payload
-    })
-    builder.addCase(fethUsers.rejected, (state) => {
-      state.status = status.ERROR
-      state.items = []
-      alert('Ошибка при запросе данных')
-    })
+    builder
+      .addCase(fethUsers.pending, (state) => {
+        state.status = status.LOADING
+        state.items = []
+      })
+      .addCase(fethUsers.fulfilled, (state, action) => {
+        state.status = status.SUCCESS
+        state.items = action.payload
+      })
+      .addCase(fethUsers.rejected, (state) => {
+        state.status = status.ERROR
+        state.items = []
+        alert('Ошибка при запросе данных')
+      })
 ////////fethOneUser 
-    builder.addCase(fethOneUser.pending, (state) => {
-      state.status = status.LOADING
-    })
-    builder.addCase(fethOneUser.fulfilled, (state, action) => {
-      state.status = status.SUCCESS
-      state.user = action.payload
-    })
-    builder.addCase(fethOneUser.rejected, (state) => {
-      state.status = status.ERROR
-      alert('Ошибка при запросе данных')
-    })
+    builder
+      .addCase(fethOneUser.pending, (state) => {
+        state.status = status.LOADING
+      })
+      .addCase(fethOneUser.fulfilled, (state, action) => {
+        state.status = status.SUCCESS
+        state.user = action.payload
+      })
+      .addCase(fethOneUser.rejected, (state) => {
+        state.status = status.ERROR
+        alert('Ошибка при запросе данных')
+      })
 ////////fethUpdateUser 
-    builder.addCase(fethUpdateUser.pending, (state) => {
-      state.status = status.LOADING
-    })
-    builder.addCase(fethUpdateUser.fulfilled, (state) => {
-      state.status = status.SUCCESS
-    })
-    builder.addCase(fethUpdateUser.rejected, (state) => {
-      state.status = status.ERROR
-      alert('Ошибка при отправке изменения')
-    })
+    builder
+      .addCase(fethUpdateUser.pending, (state) => {
+        state.status = status.LOADING
+      })
+      .addCase(fethUpdateUser.fulfilled, (state) => {
+        state.status = status.SUCCESS
+      })
+      .addCase(fethUpdateUser.rejected, (state) => {
+        state.status = status.ERROR
+        alert('Ошибка при отправке изменения')
+      })
   }
 })
 

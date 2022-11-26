@@ -32,9 +32,10 @@ const Login: React.FC<LoginProps> = (props) => {
 
   const submit = async (args: LoginDto) => {
     try {
-      const { payload: token } = await dispatch(fetchLogin(args))
-      if ( token ) {
-        window.localStorage.setItem('token', `Bearer ${token}`)
+      const { payload } = await dispatch(fetchLogin(args));
+      
+      if ( payload.token ) {
+        window.localStorage.setItem('token', `Bearer ${payload.token}`)
         dispatch(fetchAuthMe())
       }
     } catch (err) {

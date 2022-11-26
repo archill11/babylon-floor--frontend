@@ -25,7 +25,6 @@ export const fethMessages = createAsyncThunk<Message[], string>('dialogs/fethMes
 
 
 //уже не нужны тк есть сокеты
-
 // export const createDialog = createAsyncThunk<Item[], string[]>('dialogs/createDialog', async (data1) => {
 //   const { data } = await axios.post<Item[]>(`/chat`, data1 )
 //   return data;
