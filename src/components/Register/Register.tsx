@@ -34,9 +34,9 @@ const Register: React.FC<RegisterProps> = (props) => {
 
   const submit = async (args: FormValues) => {
     try {
-      const { payload: token } = await dispatch(fetchRegister(args))
-      if ( token ) {
-        window.localStorage.setItem('token', `Bearer ${token}`)
+      const { payload } = await dispatch(fetchRegister(args))
+      if ( payload.token ) {
+        window.localStorage.setItem('token', `Bearer ${payload.token}`)
       }
     } catch (err) {
       console.log(errors);
